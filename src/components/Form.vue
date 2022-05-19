@@ -2,35 +2,33 @@
     <div class="container">
 
     <form>
-
         <div class="flex">
             <input class="border-shadow" type="text" v-model="text">
             <input class="border-shadow" type="date" v-model="date">
         </div>
     </form>
 
- 
+ <div class="container table"> 
 
-    <Display-data v-bind:countries='data' v-bind:atCountries='atCountries' />
+     <Table-header v-bind:atCountries='atCountries'/>
     <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index">{{page}}</button></div>
     
     </div>
+ </div>
 
 </template>
 
 <script>
-import DisplayData from "./DisplayData.vue"
-
+// import DisplayData from "./DisplayData.vue"
+import TableHeader from './TableHeader.vue'
 
 export default {
 
-    props: [
-        'data', 'atCountries'
-            ]
-    ,
+    props: ['atCountries' ],
 
     components: {
-        DisplayData
+        // DisplayData,
+        TableHeader
     },
 
     data: () => {
@@ -40,8 +38,6 @@ export default {
             currentPage: '',
             maxPages: '',
             avaliablePages: [],
-            // atCountries: true,
-            
         }
     },
     

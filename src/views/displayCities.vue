@@ -3,6 +3,7 @@
         <Add-modal v-show='show' v-on:toggleState="updateState" v-bind:atCountries="atCountries" v-bind:id="id"/>
         <add-button v-bind:atCountries='atCountries' v-on:toggleState="updateState"/>
         <Form v-bind:data="fetchedData" v-bind:atCountries='atCountries'/>
+        <Display-data v-bind:countries='fetchedData' v-bind:atCountries='atCountries' v-on:toggleState="updateState"/>
         Cities says hello 
 {{ id }}
     <!-- {{ id }}{{ params }} -->
@@ -14,6 +15,7 @@ import axios from 'axios'
 import AddButton from '../components/AddButton.vue'
 import Form from '../components/Form.vue'
 import AddModal from '../components/AddModal'
+import DisplayData from '../components/DisplayData'
 import { urlAPI } from '../../vue.config'
 
 
@@ -32,6 +34,7 @@ import { urlAPI } from '../../vue.config'
         AddButton,
         Form,
         AddModal,
+        DisplayData,
     },
         methods: {
             getData(url){

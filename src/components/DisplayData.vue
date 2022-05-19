@@ -1,8 +1,6 @@
 <template>
-    <div class="container table border-shadow">
+    <div class="container border-shadow">
 
-
-        <Table-header v-bind:atCountries='atCountries'/>
         <div class="grid" v-for="item in countries" v-bind:key="item.id">
             <!-- <div><p @click="getData(`${url}/${item.id}/cities`)">{{item.attributes.name}}</p></div> -->
             <div><router-link :to="{ name: 'cities', params: { id: item.id}}"  ><p>{{item.attributes.name}}</p></router-link></div>
@@ -11,25 +9,22 @@
             <div v-if=atCountries><p>{{item.attributes.phone_code}}</p></div>
             <div v-else><p>{{item.attributes.postal_code}}</p></div>
             <div class="flex">
-            <button><img src='../assets/icons/trash.svg'></button>
-            <button><img src='../assets/icons/pen.svg'></button>
+            <button @click="deleteData(item.id)"><img src='../assets/icons/trash.svg'></button>
+            <button @click="editData(item.id)"><img src='../assets/icons/pen.svg'></button>
             </div>
         </div>
-<!-- 
-        {{countries}} -->
+
     </div>
 </template>``
 
 <script>
 import axios from 'axios'
-import TableHeader from './TableHeader.vue'
+import { urlAPI } from '../../vue.config'
+
 
 export default {
-    props: ['countries', 'atCountries', 'url'],
+    props: ['countries', 'atCountries'],
 
-    components: {
-        TableHeader,
-    },
 
     data: () => {
         return {
@@ -47,11 +42,34 @@ export default {
                 console.log(data)
                                 })
 
+        },
+        editData(id){
+            
+        let reqUrl = `${this.computedUrl}/${id}`
+            axios.get(reqUrl)
+            .then(res => this.$emit('toggleState', res.data))
+            console.log(reqUrl)
+        },
+        deleteData(id){
+            let reqUrl = `${this.computedUrl}/${id}`
+            axios.delete(reqUrl)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+        }
+    },
+
+    computed: {
+        computedUrl(){
+            if(this.atCountries){
+                return urlAPI
+            } else {
+                return `${urlAPI}/${this.$route.params.id}/cities`
+            }
         }
     },
 
     created() {
-        console.log('at countries', this.atCountries)
+
     }
     
 
@@ -60,19 +78,8 @@ export default {
 </script>
 
 <style scoped>
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4, 2fr) 1fr;
-    justify-content: center;
-    align-items: center;
 
-}
 
- .table{
-     margin-top: 24px;
-     justify-self: center;
-     align-self: center;
- }
 
 
 

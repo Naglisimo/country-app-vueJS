@@ -32,7 +32,7 @@ import axios from 'axios'
 import { urlAPI } from '../../vue.config'
 
 export default {
-    props: ['atCountries', 'id'],
+    props: ['atCountries', 'id', 'dataFromChild'],
     data() {
         return{
             inputValues: {
@@ -47,7 +47,7 @@ export default {
     methods: {
             changeState() {
             this.$emit('toggleState')
-            console.log('this.show', this.show)
+            // console.log('this.show', this.show)
         },
         submitForm(){ 
             // console.log(this.requestURL)
@@ -74,6 +74,18 @@ export default {
                 return  `${urlAPI}/${this.id}/cities`
             }
 
+        },
+        passedProps() {
+            if(dataFromChild){
+                console.log('passed props is working')
+            }
+        }
+    },
+    created() {
+        console.log('created at modal')
+        if(this.dataFromChild){
+
+            console.log(' created at data from child',this.dataFromChild)
         }
     }
 

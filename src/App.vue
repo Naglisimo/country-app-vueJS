@@ -57,11 +57,28 @@ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 border-radius: 5px;
 }
 
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 2fr) 1fr;
+    justify-content: center;
+    align-items: center;
+
+}
+
+ .table{
+     margin-top: 24px;
+     justify-self: center;
+     align-self: center;
+ }
+
+
 button {
     border: none;
     background-color: rgba(0, 0, 0, 0);
     cursor: pointer;
 }
+
+
 
 
 </style>
