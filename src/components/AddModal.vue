@@ -79,13 +79,16 @@ export default {
             if(dataFromChild){
                 console.log('passed props is working')
             }
-        }
+        },
+
     },
     created() {
-        console.log('created at modal')
         if(this.dataFromChild){
-
-            console.log(' created at data from child',this.dataFromChild)
+            this.inputValues.name = this.dataFromChild.name
+            this.inputValues.area = this.dataFromChild.area
+            this.inputValues.population = this.dataFromChild.population
+            this.inputValues.phone_code = this.dataFromChild.phone_code
+            this.inputValues.postal_code = this.dataFromChild.postal_code
         }
     }
 

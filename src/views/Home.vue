@@ -1,6 +1,6 @@
 <template>
     <div>   
-            <Add-modal v-show='show' v-on:toggleState="updateState" v-bind:atCountries="atCountries" v-bind:dataFromChild="dataFromChild"/>
+            <Add-modal v-if='show' v-on:toggleState="updateState" v-bind:atCountries="atCountries" v-bind:dataFromChild="dataFromChild"/>
             <Add-button v-on:toggleState="updateState" v-bind:atCountries='atCountries' v-bind:show='show'/>
             <Form v-bind:data="fetchedData" v-bind:atCountries='atCountries'/>
             <Display-data v-bind:countries='fetchedData' v-bind:atCountries='atCountries' v-on:toggleState="updateState"/>
@@ -27,7 +27,7 @@ import { urlAPI } from "../../vue.config"
                 avaliablePages: [],
                 atCountries: true,
                 show: false,
-                dataFromChild: '',
+                dataFromChild: {},
         }
     },
     components: {
@@ -37,13 +37,13 @@ import { urlAPI } from "../../vue.config"
         AddModal,
     },
     methods: {
-        updateState() {
+        updateState(resData) {
             this.show = !this.show
-            // if(data){
+            if(resData){
+                console.log('we have resData', resData)
+                this.dataFromChild = resData.data.attributes
+            }
 
-            //     this.dataFromChild = data.data.attributes
-            // } 
-            // console.log('emited data is',data.data.attributes)
         },
             getData(url){
                 // console.log("GetData was launched")
