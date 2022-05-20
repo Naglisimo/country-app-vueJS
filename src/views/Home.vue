@@ -1,7 +1,7 @@
 <template>
     <div>   
             <Add-modal v-if='show' 
-                        v-on:refreshData='onSubmit' 
+                        v-on:refreshData='onSubmit($event)' 
                         v-on:toggleState="updateModalState"
                         v-bind:atCountries="atCountries" 
                         v-bind:dataFromChild="dataFromChild"
@@ -14,7 +14,9 @@
                         v-bind:show='show'/>
 
             <Form       v-bind:data="fetchedData" 
-                        v-bind:atCountries='atCountries'/>
+                        v-bind:atCountries='atCountries'
+                        v-on:sortAsc="sortAsc"
+                        v-on:sortDesc="sortDesc"/>
 
             <Display-data 
                         v-on:isEditing="isEditing"
@@ -57,13 +59,20 @@ import { urlAPI } from "../../vue.config"
         AddModal,
     },
     methods: {
+        sortAsc(){
+            console.log('sorting asc at home component')
+        },
+                sortDesc(){
+            console.log('sorting Desc at home component')
+        },
         isEditing(data) {
             console.log('is editing data', data)
             this.editing = data.isEditing,
             this.idOfEditing = data.idOfEditing
 
             },
-        onSubmit(){
+        onSubmit(event){
+                console.log(event)
                 console.log('page was refreshed on emited event')
                 this.getData(this.url)
             },

@@ -1,7 +1,7 @@
 <template>
     <div>
         <Add-modal v-if='show' 
-                    v-on:refreshData="onSubmit"
+                    v-on:refreshData="onSubmit($event)"
                     v-on:toggleState="updateModalState"
                     v-bind:atCountries="atCountries" 
                     v-bind:id="id" 
@@ -14,7 +14,9 @@
                     v-on:toggleState="updateModalState"/>
 
         <Form       v-bind:data="fetchedData" 
-                    v-bind:atCountries='atCountries'/>
+                    v-bind:atCountries='atCountries'
+                    v-on:sortAsc="sortAsc"
+                    v-on:sortDesc="sortDesc"/>
 
         <Display-data 
                     v-on:refreshData="onSubmit"
@@ -57,13 +59,20 @@ import { urlAPI } from '../../vue.config'
         DisplayData,
     },
         methods: {
+                    sortAsc(){
+            console.log('sorting asc at cities component')
+        },
+                sortDesc(){
+            console.log('sorting Desc at cities component')
+        },
         isEditing(data) {
             console.log('is editing data', data)
             this.editing = data.isEditing,
             this.idOfEditing = data.idOfEditing
 
             },
-            onSubmit(){
+            onSubmit(e){
+                console.log('e',e)
                 console.log('onSubmit was called at displayCities')
                 // this.getData(`${this.url}/${this.id}/cities`)
             },

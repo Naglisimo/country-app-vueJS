@@ -41,6 +41,7 @@ export default {
                 population: '',
                 phone_code: '',
                 postal_code: '',
+                isFormSubmited: '',
             },
         }
     },
@@ -48,11 +49,15 @@ export default {
         changeState() {
             this.$emit('toggleState')
         },
+        simpleLogger(){
+            console.log("simple logger")
+        },
         innerEmit(name, val) {
             console.log('name', name, 'val', val)
-            this.$emit(name)
+            return this.$emit(name, val)
         },
         submitForm(){ 
+            
             let method = !this.editing ? 'post': 'put'
             let url = !this.editing ? this.requestURL : `${this.requestURL}/${this.idOfEditing}`
             let formData = { data: {
@@ -67,14 +72,22 @@ export default {
             axios({ method: method, url: url, data:formData })
             .then(res => { if(res.statusText == 'OK') {
                 console.log('respond from AddModal.vue', res.statusText)
-                this.innerEmit('refreshData', url)
-                }})
+                this.simpleLogger()
+                // this.innerEmit('refreshData', url)
+                }
+                
+                }
+                )
 
                 
                         
             
             .catch(err => console.log(err))
+                this.innerEmit('refreshData', 'it works')
             this.changeState()
+            if (this.isFormSubmited) {
+                console.log('form is submited')
+            }
  
                             // this.$emit('refreshData', url)
         }

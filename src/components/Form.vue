@@ -10,7 +10,10 @@
 
  <div class="container table"> 
 
-     <Table-header v-bind:atCountries='atCountries'/>
+     <Table-header 
+                v-bind:atCountries='atCountries'
+                v-on:sortAsc="sortAsc"
+                v-on:sortDesc="sortDesc"/>
     <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index">{{page}}</button></div>
     
     </div>
@@ -40,6 +43,14 @@ export default {
             avaliablePages: [],
         }
     },
+    methods: {
+        sortAsc() {
+            this.$emit('sortAsc')
+        },
+        sortDesc() {
+            this.$emit('sortDesc')
+        }
+    }
     
 
         // computed: {
