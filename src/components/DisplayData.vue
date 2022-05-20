@@ -28,33 +28,30 @@ export default {
 
     data: () => {
         return {
+
         }
     },
     methods: {
-            getData(url){
-            axios
-            .get(url)
-            .then( ({data}) => {
-                this.countries = data.data
-                this.maxPages = data.meta.last_page
-                this.currentPage = data.meta.current_page
-                // this.paginationLoop(data)
-                console.log(data)
-                                })
 
-        },
         editData(id){
+            this.$emit('isEditing', {isEditing: true, idOfEditing: id})
             
         let reqUrl = `${this.computedUrl}/${id}`
             axios.get(reqUrl)
-            .then(res => this.$emit('toggleState', res.data))
+            .then(res => {
+                this.$emit('toggleState', res.data)
+                })
             console.log(reqUrl)
         },
         deleteData(id){
             let reqUrl = `${this.computedUrl}/${id}`
             axios.delete(reqUrl)
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res)
+                this.$emit('refreshData', this.computedUrl)
+                })
             .catch(err => console.log(err))
+
         }
     },
 

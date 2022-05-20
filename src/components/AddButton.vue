@@ -24,6 +24,7 @@ export default {
     methods: {
         changeState(){
             this.$emit('toggleState')
+            this.$emit('isEditing', false)
             console.log('this.show', this.show)
         },
         // addCountry(){ 

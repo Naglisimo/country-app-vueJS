@@ -1,18 +1,25 @@
 <template>
     <div>
         <Add-modal v-if='show' 
-                    v-on:toggleState="updateModalState" v-bind:atCountries="atCountries" 
+                    v-on:refreshData="onSubmit"
+                    v-on:toggleState="updateModalState"
+                    v-bind:atCountries="atCountries" 
                     v-bind:id="id" 
                     v-bind:dataFromChild="dataFromChild"
-                    v-on:onSubmit="onSubmit"/>
+                    v-bind:editing="editing"
+                    v-bind:idOfEditing="idOfEditing"/>
 
         <add-button v-bind:atCountries='atCountries'
+                    v-on:isEditing="isEditing"
                     v-on:toggleState="updateModalState"/>
 
         <Form       v-bind:data="fetchedData" 
                     v-bind:atCountries='atCountries'/>
 
-        <Display-data v-bind:countries='fetchedData' 
+        <Display-data 
+                    v-on:refreshData="onSubmit"
+                    v-on:isEditing="isEditing"
+                    v-bind:countries='fetchedData' 
                     v-bind:atCountries='atCountries' 
                     v-on:toggleState="updateModalState"/>
 
@@ -38,7 +45,9 @@ import { urlAPI } from '../../vue.config'
                 avaliablePages: [],
                 atCountries: false,
                 show: false,
-                dataFromChild: {}
+                dataFromChild: {},
+                editing: false,
+                idOfEditing: ''
         }
     },
     components: {
@@ -48,8 +57,15 @@ import { urlAPI } from '../../vue.config'
         DisplayData,
     },
         methods: {
+        isEditing(data) {
+            console.log('is editing data', data)
+            this.editing = data.isEditing,
+            this.idOfEditing = data.idOfEditing
+
+            },
             onSubmit(){
-                this.getData(`${this.url}/${this.id}/cities`)
+                console.log('onSubmit was called at displayCities')
+                // this.getData(`${this.url}/${this.id}/cities`)
             },
             getData(url){
                 console.log("GetData was launched")

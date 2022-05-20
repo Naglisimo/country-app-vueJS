@@ -1,20 +1,26 @@
 <template>
     <div>   
             <Add-modal v-if='show' 
-                        v-on:toggleState="updateModalState" 
+                        v-on:refreshData='onSubmit' 
+                        v-on:toggleState="updateModalState"
                         v-bind:atCountries="atCountries" 
                         v-bind:dataFromChild="dataFromChild"
-                        v-on:onSubmit="onSubmit"/>
+                        v-bind:editing="editing"
+                        v-bind:idOfEditing="idOfEditing"/>
 
-            <Add-button v-on:toggleState="updateModalState" 
+            <Add-button v-on:toggleState="updateModalState"
+                        v-on:isEditing="isEditing" 
                         v-bind:atCountries='atCountries' 
                         v-bind:show='show'/>
 
             <Form       v-bind:data="fetchedData" 
                         v-bind:atCountries='atCountries'/>
 
-            <Display-data v-bind:countries='fetchedData' 
+            <Display-data 
+                        v-on:isEditing="isEditing"
+                        v-bind:countries='fetchedData' 
                         v-bind:atCountries='atCountries' 
+                        v-on:refreshData='onSubmit'
                         v-on:toggleState="updateModalState"/>
             <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index" @click="getData(`${url}?page=${page}`)">{{page}}</button></div>
 
@@ -40,6 +46,8 @@ import { urlAPI } from "../../vue.config"
                 atCountries: true,
                 show: false,
                 dataFromChild: {},
+                editing: false,
+                idOfEditing: ''
         }
     },
     components: {
@@ -49,7 +57,14 @@ import { urlAPI } from "../../vue.config"
         AddModal,
     },
     methods: {
+        isEditing(data) {
+            console.log('is editing data', data)
+            this.editing = data.isEditing,
+            this.idOfEditing = data.idOfEditing
+
+            },
         onSubmit(){
+                console.log('page was refreshed on emited event')
                 this.getData(this.url)
             },
         updateModalState(resData) {
@@ -63,7 +78,7 @@ import { urlAPI } from "../../vue.config"
                 this.dataFromChild = ''
             }
         },
-            getData(url){
+        getData(url){
             axios
             .get(url)
             .then( ({data}) => {
@@ -74,7 +89,7 @@ import { urlAPI } from "../../vue.config"
                 console.log(this.fetchedData)
                                 })
         },
-                    paginationLoop(maxPages){
+                paginationLoop(maxPages){
 
                 if (maxPages > 0) {
                     for( let i = 1; this.avaliablePages.length +1 <= maxPages; i++) {

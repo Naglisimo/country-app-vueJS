@@ -32,7 +32,7 @@ import axios from 'axios'
 import { urlAPI } from '../../vue.config'
 
 export default {
-    props: ['atCountries', 'id', 'dataFromChild'],
+    props: ['atCountries', 'id', 'dataFromChild', 'editing', 'idOfEditing'],
     data() {
         return{
             inputValues: {
@@ -45,29 +45,38 @@ export default {
         }
     },
     methods: {
-            changeState() {
+        changeState() {
             this.$emit('toggleState')
-            // console.log('this.show', this.show)
+        },
+        innerEmit(name, val) {
+            console.log('name', name, 'val', val)
+            this.$emit(name)
         },
         submitForm(){ 
-            // console.log(this.requestURL)
-            axios.post(this.requestURL, {
-                data: {
-                    attributes: {
+            let method = !this.editing ? 'post': 'put'
+            let url = !this.editing ? this.requestURL : `${this.requestURL}/${this.idOfEditing}`
+            let formData = { data: {
+                attributes: {
                         name: this.inputValues.name,
                         area: this.inputValues.area,
                         population: this.inputValues.population,
                         phone_code: this.inputValues.phone_code,
                         postal_code: this.inputValues.postal_code
-                    }
-                },
-            })
-            .then(({ data }) => {
-                console.log('response', data)
-            this.$emit('toggleState')
-            this.$emit('onSubmit')
-            })
-            .catch(err => console.log('error',err))
+                }
+            }}
+            axios({ method: method, url: url, data:formData })
+            .then(res => { if(res.statusText == 'OK') {
+                console.log('respond from AddModal.vue', res.statusText)
+                this.innerEmit('refreshData', url)
+                }})
+
+                
+                        
+            
+            .catch(err => console.log(err))
+            this.changeState()
+ 
+                            // this.$emit('refreshData', url)
         }
     },
     computed: {
@@ -79,11 +88,8 @@ export default {
             }
 
         },
-        passedProps() {
-            if(dataFromChild){
-                console.log('passed props is working')
-            }
-        },
+
+        
 
     },
     created() {
