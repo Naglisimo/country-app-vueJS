@@ -1,12 +1,22 @@
 <template>
     <div>
-        <Add-modal v-if='show' v-on:toggleState="updateState" v-bind:atCountries="atCountries" v-bind:id="id" v-bind:dataFromChild="dataFromChild"/>
-        <add-button v-bind:atCountries='atCountries' v-on:toggleState="updateState"/>
-        <Form v-bind:data="fetchedData" v-bind:atCountries='atCountries'/>
-        <Display-data v-bind:countries='fetchedData' v-bind:atCountries='atCountries' v-on:toggleState="updateState"/>
-        Cities says hello 
-{{ id }}
-    <!-- {{ id }}{{ params }} -->
+        <Add-modal v-if='show' 
+                    v-on:toggleState="updateModalState" v-bind:atCountries="atCountries" 
+                    v-bind:id="id" 
+                    v-bind:dataFromChild="dataFromChild"
+                    v-on:onSubmit="onSubmit"/>
+
+        <add-button v-bind:atCountries='atCountries'
+                    v-on:toggleState="updateModalState"/>
+
+        <Form       v-bind:data="fetchedData" 
+                    v-bind:atCountries='atCountries'/>
+
+        <Display-data v-bind:countries='fetchedData' 
+                    v-bind:atCountries='atCountries' 
+                    v-on:toggleState="updateModalState"/>
+
+
     </div>
 </template>
 
@@ -38,6 +48,9 @@ import { urlAPI } from '../../vue.config'
         DisplayData,
     },
         methods: {
+            onSubmit(){
+                this.getData(`${this.url}/${this.id}/cities`)
+            },
             getData(url){
                 console.log("GetData was launched")
             axios
@@ -59,11 +72,15 @@ import { urlAPI } from '../../vue.config'
                 }
             }
         },
-                updateState(resData) {
-            this.show = !this.show
-            if(resData){
-                console.log('we have resData', resData)
+                updateModalState(resData) {
+            if(!this.show){
+                this.show = !this.show;
+                if(resData) {
                 this.dataFromChild = resData.data.attributes
+                }
+            } else {
+                this.show = !this.show;
+                this.dataFromChild = ''
             }
         },
     },

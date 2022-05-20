@@ -62,7 +62,11 @@ export default {
                     }
                 },
             })
-            .then(response => console.log('response', response))
+            .then(({ data }) => {
+                console.log('response', data)
+            this.$emit('toggleState')
+            this.$emit('onSubmit')
+            })
             .catch(err => console.log('error',err))
         }
     },

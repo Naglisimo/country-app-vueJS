@@ -1,9 +1,21 @@
 <template>
     <div>   
-            <Add-modal v-if='show' v-on:toggleState="updateState" v-bind:atCountries="atCountries" v-bind:dataFromChild="dataFromChild"/>
-            <Add-button v-on:toggleState="updateState" v-bind:atCountries='atCountries' v-bind:show='show'/>
-            <Form v-bind:data="fetchedData" v-bind:atCountries='atCountries'/>
-            <Display-data v-bind:countries='fetchedData' v-bind:atCountries='atCountries' v-on:toggleState="updateState"/>
+            <Add-modal v-if='show' 
+                        v-on:toggleState="updateModalState" 
+                        v-bind:atCountries="atCountries" 
+                        v-bind:dataFromChild="dataFromChild"
+                        v-on:onSubmit="onSubmit"/>
+
+            <Add-button v-on:toggleState="updateModalState" 
+                        v-bind:atCountries='atCountries' 
+                        v-bind:show='show'/>
+
+            <Form       v-bind:data="fetchedData" 
+                        v-bind:atCountries='atCountries'/>
+
+            <Display-data v-bind:countries='fetchedData' 
+                        v-bind:atCountries='atCountries' 
+                        v-on:toggleState="updateModalState"/>
             <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index" @click="getData(`${url}?page=${page}`)">{{page}}</button></div>
 
     </div>
@@ -37,16 +49,21 @@ import { urlAPI } from "../../vue.config"
         AddModal,
     },
     methods: {
-        updateState(resData) {
-            this.show = !this.show
-            if(resData){
-                console.log('we have resData', resData)
+        onSubmit(){
+                this.getData(this.url)
+            },
+        updateModalState(resData) {
+            if(!this.show){
+                this.show = !this.show;
+                if(resData) {
                 this.dataFromChild = resData.data.attributes
+                }
+            } else {
+                this.show = !this.show;
+                this.dataFromChild = ''
             }
-
         },
             getData(url){
-                // console.log("GetData was launched")
             axios
             .get(url)
             .then( ({data}) => {
