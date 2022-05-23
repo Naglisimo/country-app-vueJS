@@ -12,8 +12,9 @@
 
      <Table-header 
                 v-bind:atCountries='atCountries'
-                v-on:sortAsc="sortAsc"
-                v-on:sortDesc="sortDesc"/>
+                v-bind:url='url'
+                v-on:sortAsc="sortAsc($event)"
+                v-on:sortDesc="sortDesc($event)"/>
     <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index">{{page}}</button></div>
     
     </div>
@@ -27,7 +28,7 @@ import TableHeader from './TableHeader.vue'
 
 export default {
 
-    props: ['atCountries' ],
+    props: ['atCountries', 'url'],
 
     components: {
         // DisplayData,
@@ -44,11 +45,11 @@ export default {
         }
     },
     methods: {
-        sortAsc() {
-            this.$emit('sortAsc')
+        sortAsc(e) {
+            this.$emit('sortAsc', e)
         },
-        sortDesc() {
-            this.$emit('sortDesc')
+        sortDesc(e) {
+            this.$emit('sortDesc', e)
         }
     }
     

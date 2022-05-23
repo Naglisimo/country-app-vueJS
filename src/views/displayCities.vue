@@ -1,7 +1,7 @@
 <template>
     <div>
         <Add-modal v-if='show' 
-                    v-on:refreshData="onSubmit($event)"
+                    v-on:refreshData="onSubmit"
                     v-on:toggleState="updateModalState"
                     v-bind:atCountries="atCountries" 
                     v-bind:id="id" 
@@ -15,8 +15,9 @@
 
         <Form       v-bind:data="fetchedData" 
                     v-bind:atCountries='atCountries'
-                    v-on:sortAsc="sortAsc"
-                    v-on:sortDesc="sortDesc"/>
+                    v-bind:url="currentUrl"
+                    v-on:sortAsc="getData($event)"
+                    v-on:sortDesc="getData($event)"/>
 
         <Display-data 
                     v-on:refreshData="onSubmit"
@@ -25,6 +26,7 @@
                     v-bind:atCountries='atCountries' 
                     v-on:toggleState="updateModalState"/>
 
+        <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index" @click="getData(`${url}/${id}/cities?page=${page}`)">{{page}}</button></div>
 
     </div>
 </template>
@@ -49,7 +51,8 @@ import { urlAPI } from '../../vue.config'
                 show: false,
                 dataFromChild: {},
                 editing: false,
-                idOfEditing: ''
+                idOfEditing: '',
+                currentUrl: `${this.url}/${this.id}/cities`
         }
     },
     components: {
@@ -71,12 +74,15 @@ import { urlAPI } from '../../vue.config'
             this.idOfEditing = data.idOfEditing
 
             },
-            onSubmit(e){
+    onSubmit(e){
                 console.log('e',e)
-                console.log('onSubmit was called at displayCities')
-                // this.getData(`${this.url}/${this.id}/cities`)
+                this.getData(`${this.url}/${this.id}/cities`)
+                console.log('onSubmit url', `${this.url}/${this.id}/cities`)
             },
-            getData(url){
+    getData(url){
+            if (url) {
+                console.log('get data url is', url)
+                console.log(url)
                 console.log("GetData was launched")
             axios
             .get(url)
@@ -86,8 +92,11 @@ import { urlAPI } from '../../vue.config'
                 this.maxPages = data.meta.last_page
                 this.currentPage = data.meta.current_page
                 this.paginationLoop(this.maxPages)
-                console.log(this.fetchedData)
+                console.log(this.maxPages)
                                 })
+                } else {
+                    console.log('this shit doesnt work blet')
+                }
         },
                     paginationLoop(maxPages){
 
@@ -97,7 +106,7 @@ import { urlAPI } from '../../vue.config'
                 }
             }
         },
-                updateModalState(resData) {
+    updateModalState(resData) {
             if(!this.show){
                 this.show = !this.show;
                 if(resData) {
@@ -109,6 +118,9 @@ import { urlAPI } from '../../vue.config'
             }
         },
     },
+    computed: {
+    computedAvaliablePages: () => {return this.avaliablePages.splice(0, 5)}
+        },
     created() {
         this.getData(`${this.url}/${this.id}/cities`)
 

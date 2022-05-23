@@ -16,17 +16,19 @@
 
 <script>
     export default {
-        props: ['atCountries'],
+        props: ['atCountries', 'url'],
         data(){
             return {
             }
         },
         methods: {
             ascending() {
-                this.$emit("sortAsc")
+                console.log(`${this.url}?order=asc`)
+                this.$emit("sortAsc", `${this.url}?order=asc`)
             },
             descending() {
-                this.$emit("sortDesc")
+                console.log(`${this.url}?order=desc`)
+                this.$emit("sortDesc", `${this.url}?order=desc`)
             }
         }
     }

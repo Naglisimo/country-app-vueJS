@@ -1,8 +1,12 @@
 <template>
     <div class="modal">
+
         <button @click.prevent="changeState">X</button>
+
     <h1>PRIDETI SALI</h1>
+
     <form @submit.prevent="submitForm" class="flex-column">
+
         <label for="name">Pavadinimas</label>
         <input v-model="inputValues.name" class='border-shadow' type="text" name="name" id="name">{{inputValues.name}}
 
@@ -16,6 +20,7 @@
             <label  for="phone_code">Salies tel. kodas</label>
             <input v-model="inputValues.phone_code" class='border-shadow' type="tel" name="phone_code" id="phone_code">{{inputValues.phone_code}}
         </div>
+
         <div class="flex-column" v-else>
             <label for="postal_code">Miesto pasto kodas</label>
             <input  v-model="inputValues.postal_code" class='border-shadow' type="tel" name="postal_code" id="postal_code">{{inputValues.postal_code}}
@@ -23,6 +28,7 @@
 
 
         <button type="submit">SAUGOTI</button>
+
     </form>
     </div>
 </template>
@@ -49,15 +55,8 @@ export default {
         changeState() {
             this.$emit('toggleState')
         },
-        simpleLogger(){
-            console.log("simple logger")
-        },
-        innerEmit(name, val) {
-            console.log('name', name, 'val', val)
-            return this.$emit(name, val)
-        },
         submitForm(){ 
-            
+            console.log('submit form from addModal.vue ')
             let method = !this.editing ? 'post': 'put'
             let url = !this.editing ? this.requestURL : `${this.requestURL}/${this.idOfEditing}`
             let formData = { data: {
@@ -69,27 +68,14 @@ export default {
                         postal_code: this.inputValues.postal_code
                 }
             }}
+            console.log('url before request is' , this.requestURL)
             axios({ method: method, url: url, data:formData })
-            .then(res => { if(res.statusText == 'OK') {
-                console.log('respond from AddModal.vue', res.statusText)
-                this.simpleLogger()
-                // this.innerEmit('refreshData', url)
-                }
-                
-                }
-                )
+            .then(res => { 
 
-                
-                        
-            
+                this.$emit('refreshData', this.requestURL)
+                this.changeState()
+                })
             .catch(err => console.log(err))
-                this.innerEmit('refreshData', 'it works')
-            this.changeState()
-            if (this.isFormSubmited) {
-                console.log('form is submited')
-            }
- 
-                            // this.$emit('refreshData', url)
         }
     },
     computed: {

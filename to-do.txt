@@ -1,9 +1,9 @@
 1. Isjungus modala - isvalyti inputus ++++
 3. istrynus miesta arba sali - atnaujinti puslapi (ideti getData funkcija?) ++++++
 2. Redaguojant miesta/ sali - neissiuncia requesto +++++++
+2.1 pridejus miesta neatnaujina listo +++++++
 
 
-2.1 pridejus miesta neatnaujina listo
 
 4. iscentruoti puslapiavima
 5. paieska pagal raktazodi

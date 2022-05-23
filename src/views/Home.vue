@@ -15,14 +15,15 @@
 
             <Form       v-bind:data="fetchedData" 
                         v-bind:atCountries='atCountries'
-                        v-on:sortAsc="sortAsc"
-                        v-on:sortDesc="sortDesc"/>
+                        v-bind:url="url"
+                        v-on:sortAsc="getData($event)"
+                        v-on:sortDesc="getData($event)"/>
 
             <Display-data 
                         v-on:isEditing="isEditing"
                         v-bind:countries='fetchedData' 
                         v-bind:atCountries='atCountries' 
-                        v-on:refreshData='onSubmit'
+                        v-on:refreshData='onSubmit($event)'
                         v-on:toggleState="updateModalState"/>
             <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index" @click="getData(`${url}?page=${page}`)">{{page}}</button></div>
 
@@ -71,10 +72,9 @@ import { urlAPI } from "../../vue.config"
             this.idOfEditing = data.idOfEditing
 
             },
-        onSubmit(event){
-                console.log(event)
-                console.log('page was refreshed on emited event')
-                this.getData(this.url)
+        onSubmit(e){
+            console.log('on submit at home.vue was launched with event value:', e)
+                this.getData(e)
             },
         updateModalState(resData) {
             if(!this.show){
@@ -88,6 +88,7 @@ import { urlAPI } from "../../vue.config"
             }
         },
         getData(url){
+            console.log('get data url is', url)
             axios
             .get(url)
             .then( ({data}) => {
@@ -99,7 +100,6 @@ import { urlAPI } from "../../vue.config"
                                 })
         },
                 paginationLoop(maxPages){
-
                 if (maxPages > 0) {
                     for( let i = 1; this.avaliablePages.length +1 <= maxPages; i++) {
                         this.avaliablePages.push(i)
