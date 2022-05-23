@@ -1,5 +1,12 @@
 <template>
-    <div class="container border-shadow">
+    <div class="container border-shadow ">
+
+
+             <Table-header 
+                v-bind:atCountries='atCountries'
+                v-bind:url='url'
+                v-on:sortAsc="sortAsc($event)"
+                v-on:sortDesc="sortDesc($event)"/>
 
         <div class="grid" v-for="item in countries" v-bind:key="item.id">
             <!-- <div><p @click="getData(`${url}/${item.id}/cities`)">{{item.attributes.name}}</p></div> -->
@@ -18,6 +25,7 @@
 </template>``
 
 <script>
+import TableHeader from './TableHeader.vue'
 import axios from 'axios'
 import { urlAPI } from '../../vue.config'
 
@@ -25,6 +33,9 @@ import { urlAPI } from '../../vue.config'
 export default {
     props: ['countries', 'atCountries'],
 
+    components: {
+        TableHeader
+    },
 
     data: () => {
         return {
@@ -76,8 +87,16 @@ export default {
 
 <style scoped>
 
+.container {
+    margin-top: 24px;
+}
 
-
+.grid div {
+    margin-left: 32px;
+    margin-bottom: 16px;
+    border-top: 1px solid black;
+    padding-left: 32px;
+}
 
 
 

@@ -26,7 +26,7 @@
                     v-bind:atCountries='atCountries' 
                     v-on:toggleState="updateModalState"/>
 
-        <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index" @click="getData(`${url}/${id}/cities?page=${page}`)">{{page}}</button></div>
+        <div class="flex pagination"><button v-for="(page, index) in avaliablePages" v-bind:key="index" @click="getData(`${url}/${id}/cities?page=${page}`)">{{page}}</button></div>
 
     </div>
 </template>

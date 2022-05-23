@@ -1,16 +1,16 @@
 <template>
         <div class="grid">
             <div class="flex">
-                <p>PAVADINIMAS</p>
-                <div>
-                    <button @click="ascending">up</button>
-                    <button @click="descending">down</button>
+                <h2>PAVADINIMAS</h2>
+                <div class="flex-column">
+                    <button @click="ascending"><img src='../assets/icons/vectorUp.svg'></button>
+                    <button @click="descending"><img src="../assets/icons/vectorDown.svg"></button>
                     </div></div>
-            <div><p>UZIMAMAS PLOTAS</p></div>
-            <div><p>GYVENTOJU SKAICIUS</p></div>
-            <div v-if="atCountries"><p>SALIES TEL. KODAS</p></div>
-            <div v-else><p>SALIES PASTO KODAS</p></div>
-            <div><p>VEIKSMAI</p></div>
+            <div><h2>UZIMAMAS PLOTAS</h2></div>
+            <div><h2>GYVENTOJU SKAICIUS</h2></div>
+            <div v-if="atCountries"><h2>SALIES TEL. KODAS</h2></div>
+            <div v-else><h2>SALIES PASTO KODAS</h2></div>
+            <div><h2>VEIKSMAI</h2></div>
         </div>
 </template>   
 
@@ -34,6 +34,10 @@
     }
 </script>
 
-<style>
+<style scoped>
+
+.flex-column {
+    margin-left: 8px;
+}
 
 </style>        

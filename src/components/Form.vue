@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container ">
 
     <form>
         <div class="flex">
@@ -8,14 +8,14 @@
         </div>
     </form>
 
- <div class="container table"> 
-
+ <div class="container table border-shadow"> 
+<!-- 
      <Table-header 
                 v-bind:atCountries='atCountries'
                 v-bind:url='url'
                 v-on:sortAsc="sortAsc($event)"
-                v-on:sortDesc="sortDesc($event)"/>
-    <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index">{{page}}</button></div>
+                v-on:sortDesc="sortDesc($event)"/> -->
+    <!-- <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index">{{page}}</button></div> -->
     
     </div>
  </div>

@@ -40,6 +40,30 @@ body {
     background-color: #E5E5E5;
 }
 
+button {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+
+h2 {
+  font-family: oswald;
+  font-weight: 200;
+    color: #5C5C5C;
+}
+
+p {
+  font-family: oswald;
+    font-weight: 200;
+    color: #5C5C5C;
+}
+
+a {
+  text-decoration: none;
+  font-weight: 200;
+  color: #5C5C5C;
+}
+
 .container {
   width: 1200px;
   margin: 0 auto;
@@ -48,10 +72,16 @@ body {
 .flex {
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .border-shadow {
-  background: #FFFFFF;
+background: #FFFFFF;
 box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 border-radius: 5px;
 }
@@ -61,21 +91,16 @@ border-radius: 5px;
     grid-template-columns: repeat(4, 2fr) 1fr;
     justify-content: center;
     align-items: center;
-
+    
 }
 
- .table{
-     margin-top: 24px;
-     justify-self: center;
-     align-self: center;
- }
 
-
-button {
-    border: none;
-    background-color: rgba(0, 0, 0, 0);
-    cursor: pointer;
+.pagination button {
+    margin: 16px 2px 2px;
 }
+
+
+
 
 
 
