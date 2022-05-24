@@ -94,12 +94,53 @@ border-radius: 5px;
     
 }
 
+.pagination {
+  margin-bottom: 36px;
+
+}
 
 .pagination button {
     margin: 16px 2px 2px;
 }
 
+/*   styles for table  */
 
+th {
+    font-family: oswald;
+    font-weight: 400;
+    padding-top: 16px;
+    height: 44px;
+    border-left: #969696 solid 1px;
+}
+
+
+tr {
+    width: 100%;
+    border-top: #969696 solid 1px;
+}
+
+ tr th:first-child {
+    border-left: none;
+ 
+}
+
+tr:first-child {
+    border-top: none;
+ 
+}
+
+
+table tr:first-child th {
+    width: 230px;
+}
+
+th:nth-child(-n+4){
+    width: 230px
+}
+
+th:nth-child(n+5){
+    width: 115px
+}
 
 
 

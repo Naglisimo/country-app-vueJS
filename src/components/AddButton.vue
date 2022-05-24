@@ -51,13 +51,15 @@ h2 {
     font-weight: 400;
 }
 
-
-
 img {
     width: 64px;
     height: 64px;
     border-radius: 50%;
     cursor: pointer;
     border-radius: 50%;
+}
+
+.flex {
+    justify-content: flex-start;
 }
 </style>

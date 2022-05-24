@@ -8,18 +8,18 @@
                 v-on:sortAsc="sortAsc($event)"
                 v-on:sortDesc="sortDesc($event)"/>
 
-        <div class="grid" v-for="item in countries" v-bind:key="item.id">
+        <tr class="grid" v-for="item in countries" v-bind:key="item.id">
             <!-- <div><p @click="getData(`${url}/${item.id}/cities`)">{{item.attributes.name}}</p></div> -->
-            <div><router-link :to="{ name: 'cities', params: { id: item.id}}"  ><p>{{item.attributes.name}}</p></router-link></div>
-            <div><p>{{item.attributes.area}}</p></div>
-            <div><p>{{item.attributes.population}}</p></div>
-            <div v-if=atCountries><p>{{item.attributes.phone_code}}</p></div>
-            <div v-else><p>{{item.attributes.postal_code}}</p></div>
-            <div class="flex">
+            <th><router-link :to="{ name: 'cities', params: { id: item.id}}"  ><p>{{item.attributes.name}}</p></router-link></th>
+            <th><p>{{item.attributes.area}}</p></th>
+            <th><p>{{item.attributes.population}}</p></th>
+            <th v-if=atCountries><p>{{item.attributes.phone_code}}</p></th>
+            <th v-else><p>{{item.attributes.postal_code}}</p></th>
+            <th class="flex">
             <button @click="deleteData(item.id)"><img src='../assets/icons/trash.svg'></button>
             <button @click="editData(item.id)"><img src='../assets/icons/pen.svg'></button>
-            </div>
-        </div>
+            </th>
+        </tr>
 
     </div>
 </template>``

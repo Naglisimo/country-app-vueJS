@@ -26,7 +26,12 @@
                     v-bind:atCountries='atCountries' 
                     v-on:toggleState="updateModalState"/>
 
+            <div class="flex pagination">
+                <button v-if="prevPage" @click="getData(prevPage)"><img src="../assets/icons/vectorLeft.svg"></button>
         <div class="flex pagination"><button v-for="(page, index) in avaliablePages" v-bind:key="index" @click="getData(`${url}/${id}/cities?page=${page}`)">{{page}}</button></div>
+                <button v-if="nextPage" @click="getData(nextPage)"><img src="../assets/icons/vectorRight.svg"></button>
+            </div>
+
 
     </div>
 </template>
@@ -47,6 +52,8 @@ import { urlAPI } from '../../vue.config'
                 url: urlAPI,
                 fetchedData: '',
                 avaliablePages: [],
+                prevPage: '',
+                nextPage: '',
                 atCountries: false,
                 show: false,
                 dataFromChild: {},
@@ -91,6 +98,8 @@ import { urlAPI } from '../../vue.config'
                 this.fetchedData = data.data
                 this.maxPages = data.meta.last_page
                 this.currentPage = data.meta.current_page
+                this.prevPage = data.links.prev
+                this.nextPage = data.links.next
                 this.paginationLoop(this.maxPages)
                 console.log(this.maxPages)
                                 })
