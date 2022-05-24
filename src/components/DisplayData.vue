@@ -9,7 +9,6 @@
                 v-on:sortDesc="sortDesc($event)"/>
 
         <tr class="grid" v-for="item in countries" v-bind:key="item.id">
-            <!-- <div><p @click="getData(`${url}/${item.id}/cities`)">{{item.attributes.name}}</p></div> -->
             <th><router-link :to="{ name: 'cities', params: { id: item.id}}"  ><p>{{item.attributes.name}}</p></router-link></th>
             <th><p>{{item.attributes.area}}</p></th>
             <th><p>{{item.attributes.population}}</p></th>
@@ -39,10 +38,24 @@ export default {
 
     data: () => {
         return {
-
+            url: urlAPI
         }
     },
     methods: {
+                sortAsc(){
+                    if (this.atCountries) {
+            console.log('sorting asc at home component')
+                    } else {
+            console.log('sorting asc at displayCities component')
+                    }
+        },
+                sortDesc(){
+                    if (this.atCountries) {
+            console.log('sorting desc at home component')
+                    } else {
+            console.log('sorting desc at displayCities component')
+                    }
+        },
 
         editData(id){
             this.$emit('isEditing', {isEditing: true, idOfEditing: id})
@@ -52,13 +65,11 @@ export default {
             .then(res => {
                 this.$emit('toggleState', res.data)
                 })
-            console.log(reqUrl)
         },
         deleteData(id){
             let reqUrl = `${this.computedUrl}/${id}`
             axios.delete(reqUrl)
             .then(res => {
-                console.log(res)
                 this.$emit('refreshData', this.computedUrl)
                 })
             .catch(err => console.log(err))
@@ -75,12 +86,6 @@ export default {
             }
         }
     },
-
-    created() {
-
-    }
-    
-
 }
 
 </script>

@@ -1,39 +1,24 @@
 <template>
     <div class="container ">
 
-    <form>
+    <form >
         <div class="flex">
-            <input class="border-shadow" type="text" v-model="text">
-            <input class="border-shadow" type="date" v-model="date">
+            <input @keyup="filterData" class="border-shadow" type="text" v-model="text">
+            <input @change="filterData" class="border-shadow" type="date" v-model="date">
         </div>
     </form>
-
- <div class="container table border-shadow"> 
-<!-- 
-     <Table-header 
-                v-bind:atCountries='atCountries'
-                v-bind:url='url'
-                v-on:sortAsc="sortAsc($event)"
-                v-on:sortDesc="sortDesc($event)"/> -->
-    <!-- <div class="flex"><button v-for="(page, index) in avaliablePages" v-bind:key="index">{{page}}</button></div> -->
-    
-    </div>
  </div>
 
 </template>
 
 <script>
-// import DisplayData from "./DisplayData.vue"
-import TableHeader from './TableHeader.vue'
+import { urlAPI } from "../../vue.config"
+
 
 export default {
 
-    props: ['atCountries', 'url'],
+    props: ['atCountries', 'url', 'id'],
 
-    components: {
-        // DisplayData,
-        TableHeader
-    },
 
     data: () => {
         return {
@@ -50,14 +35,22 @@ export default {
         },
         sortDesc(e) {
             this.$emit('sortDesc', e)
+        },
+        filterData() {
+            this.$emit('filterData', `${this.requestURL}?search=${this.text}&start_date=${this.date}`)
         }
-    }
+    },
     
 
-        // computed: {
-
-        //         computedAvaliablePages: () => {return this.avaliablePages.splice(0, 5)}
-        // },
+    computed: {
+        requestURL() {
+            if(this.atCountries){
+                return  urlAPI
+            } else {
+                return  `${urlAPI}/${this.id}/cities`
+            }
+        },
+    },
 
 
 

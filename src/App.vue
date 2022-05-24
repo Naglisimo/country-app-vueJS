@@ -46,6 +46,13 @@ button {
     cursor: pointer;
 }
 
+input {
+  font-size: 24px;
+    font-family: oswald;
+  font-weight: 200;
+    color: #5C5C5C;
+}
+
 h2 {
   font-family: oswald;
   font-weight: 200;

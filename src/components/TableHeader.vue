@@ -26,11 +26,9 @@
         },
         methods: {
             ascending() {
-                console.log(`${this.url}?order=asc`)
                 this.$emit("sortAsc", `${this.url}?order=asc`)
             },
             descending() {
-                console.log(`${this.url}?order=desc`)
                 this.$emit("sortDesc", `${this.url}?order=desc`)
             }
         }

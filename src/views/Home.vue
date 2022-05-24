@@ -1,7 +1,7 @@
 <template>
     <div>   
             <Add-modal v-if='show' 
-                        v-on:refreshData='onSubmit($event)' 
+                        v-on:refreshData='getData($event)' 
                         v-on:toggleState="updateModalState"
                         v-bind:atCountries="atCountries" 
                         v-bind:dataFromChild="dataFromChild"
@@ -13,17 +13,18 @@
                         v-bind:atCountries='atCountries' 
                         v-bind:show='show'/>
 
-            <Form       v-bind:data="fetchedData" 
+            <Form       
                         v-bind:atCountries='atCountries'
                         v-bind:url="url"
                         v-on:sortAsc="getData($event)"
-                        v-on:sortDesc="getData($event)"/>
+                        v-on:sortDesc="getData($event)"
+                        v-on:filterData="getData($event)"/>
 
             <Display-data 
                         v-on:isEditing="isEditing"
                         v-bind:countries='fetchedData' 
                         v-bind:atCountries='atCountries' 
-                        v-on:refreshData='onSubmit($event)'
+                        v-on:refreshData='getData($event)'
                         v-on:toggleState="updateModalState"/>
 
             <div class="flex pagination">
@@ -74,14 +75,9 @@ import { urlAPI } from "../../vue.config"
             console.log('sorting Desc at home component')
         },
         isEditing(data) {
-            console.log('is editing data', data)
             this.editing = data.isEditing,
             this.idOfEditing = data.idOfEditing
 
-            },
-        onSubmit(e){
-            console.log('on submit at home.vue was launched with event value:', e)
-                this.getData(e)
             },
         updateModalState(resData) {
             if(!this.show){
@@ -95,7 +91,7 @@ import { urlAPI } from "../../vue.config"
             }
         },
         getData(url){
-            console.log('get data url is', url)
+            this.avaliablePages = []
             axios
             .get(url)
             .then( ({data}) => {
@@ -105,7 +101,6 @@ import { urlAPI } from "../../vue.config"
                 this.prevPage = data.links.prev
                 this.nextPage = data.links.next
                 this.paginationLoop(this.maxPages)
-                console.log(this.fetchedData)
                                 })
         },
                 paginationLoop(maxPages){

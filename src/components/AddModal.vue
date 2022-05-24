@@ -3,7 +3,8 @@
 
         <button class="exitBtn" @click.prevent="changeState"><img src="../assets/icons/exitBtn.svg"></button>
 
-    <h2>PRIDETI SALI</h2>
+    <h2 v-if="atCountries">PRIDETI SALI</h2>
+    <h2 v-else>PRIDETI MIESTA</h2>
 
     <form @submit.prevent="submitForm" class="flex-column">
 
@@ -56,7 +57,6 @@ export default {
             this.$emit('toggleState')
         },
         submitForm(){ 
-            console.log('submit form from addModal.vue ')
             let method = !this.editing ? 'post': 'put'
             let url = !this.editing ? this.requestURL : `${this.requestURL}/${this.idOfEditing}`
             let formData = { data: {
@@ -68,7 +68,6 @@ export default {
                         postal_code: this.inputValues.postal_code
                 }
             }}
-            console.log('url before request is' , this.requestURL)
             axios({ method: method, url: url, data:formData })
             .then(res => { 
 
@@ -85,11 +84,7 @@ export default {
             } else {
                 return  `${urlAPI}/${this.id}/cities`
             }
-
         },
-
-        
-
     },
     created() {
         if(this.dataFromChild){
