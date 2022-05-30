@@ -44,7 +44,9 @@ import DisplayData from '../components/DisplayData'
 import axios from 'axios'
 import { urlAPI } from "../../vue.config"
 
+
     export default {
+        
         data() {
             return {
                 url: urlAPI,

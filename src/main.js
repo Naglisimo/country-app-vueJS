@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
+import {router} from './routes/routes'
 import VueRouter from 'vue-router'
-import routes from './routes'
 
-const router = new VueRouter({
-  routes
-})
 
 Vue.use(VueRouter)
 

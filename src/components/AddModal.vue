@@ -1,7 +1,7 @@
 <template>
     <div class="modal">
 
-        <button class="exitBtn" @click.prevent="changeState"><img src="../assets/icons/exitBtn.svg"></button>
+        <button class="exitBtn" @click.prevent="changeState" @click="log"><img src="../assets/icons/exitBtn.svg"></button>
 
     <h2 v-if="atCountries">PRIDETI SALI</h2>
     <h2 v-else>PRIDETI MIESTA</h2>
@@ -37,8 +37,10 @@
 <script>
 import axios from 'axios'
 import { urlAPI } from '../../vue.config'
+import { consoleLogMixin } from "../mixins/consoleLogMixin"
 
 export default {
+    mixins: [consoleLogMixin],
     props: ['atCountries', 'id', 'dataFromChild', 'editing', 'idOfEditing'],
     data() {
         return{
