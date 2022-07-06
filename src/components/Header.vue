@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/"><img src="../assets/icons/TeltonikaLogo.svg"></router-link>
+        <router-link :to="{ name: 'countries'}"><img src="../assets/icons/TeltonikaLogo.svg"></router-link>
     </div>
 </template>
 

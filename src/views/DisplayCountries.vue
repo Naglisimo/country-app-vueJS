@@ -41,12 +41,12 @@ import AddButton from '../components/AddButton.vue'
 import Form from '../components/Form.vue'
 import AddModal from '../components/AddModal'
 import DisplayData from '../components/DisplayData'
-import axios from 'axios'
 import { urlAPI } from "../../vue.config"
+import { getDataMixin } from '../mixins/getDataMixin'
 
 
     export default {
-        
+        mixins: [getDataMixin],
         data() {
             return {
                 url: urlAPI,
@@ -90,26 +90,6 @@ import { urlAPI } from "../../vue.config"
             } else {
                 this.show = !this.show;
                 this.dataFromChild = ''
-            }
-        },
-        getData(url){
-            this.avaliablePages = []
-            axios
-            .get(url)
-            .then( ({data}) => {
-                this.fetchedData = data.data
-                this.maxPages = data.meta.last_page
-                this.currentPage = data.meta.current_page
-                this.prevPage = data.links.prev
-                this.nextPage = data.links.next
-                this.paginationLoop(this.maxPages)
-                                })
-        },
-                paginationLoop(maxPages){
-                if (maxPages > 0) {
-                    for( let i = 1; this.avaliablePages.length +1 <= maxPages; i++) {
-                        this.avaliablePages.push(i)
-                }
             }
         },
     },

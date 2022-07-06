@@ -7,10 +7,7 @@
 
 <script>
 
-
 import Header from "./components/Header"
-
-
 
 export default {
   name: 'app',
@@ -26,7 +23,6 @@ export default {
 </script>
 
 <style>
-
 /*  import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
 
@@ -72,7 +68,7 @@ a {
 }
 
 .container {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 

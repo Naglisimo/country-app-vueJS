@@ -1,7 +1,7 @@
 <template>
     <div class="modal">
 
-        <button class="exitBtn" @click.prevent="changeState" @click="log"><img src="../assets/icons/exitBtn.svg"></button>
+        <button class="exitBtn" @click.prevent="changeState"><img src="../assets/icons/exitBtn.svg"></button>
 
     <h2 v-if="atCountries">PRIDETI SALI</h2>
     <h2 v-else>PRIDETI MIESTA</h2>
@@ -37,10 +37,8 @@
 <script>
 import axios from 'axios'
 import { urlAPI } from '../../vue.config'
-import { consoleLogMixin } from "../mixins/consoleLogMixin"
 
 export default {
-    mixins: [consoleLogMixin],
     props: ['atCountries', 'id', 'dataFromChild', 'editing', 'idOfEditing'],
     data() {
         return{
@@ -97,14 +95,10 @@ export default {
             this.inputValues.postal_code = this.dataFromChild.postal_code
         }
     }
-
 }
-
 </script>
 
 <style scoped>
-
-
 .modal{
     width: 466px;
     height: 446px;
@@ -125,7 +119,6 @@ export default {
 
 .exitBtn {
     margin-left: auto;
- 
 }
 
 .modal h2 {
@@ -144,7 +137,6 @@ form input {
     height: 42px;
     margin-top: 16px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); */
 }
 
 form button {
@@ -158,7 +150,6 @@ form button {
     margin-right: 48px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
-
 
  form label{
     font-family: oswald;
@@ -176,6 +167,5 @@ form button {
     display: flex;
     flex-direction: column;
 }
-
 
 </style>
